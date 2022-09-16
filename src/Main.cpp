@@ -16,76 +16,86 @@ string reverse(string str)
     return reversed;
 }
 
-string convertDecimalToBinary(int decimal)
+class Decimal
 {
-    string binary = "";
-    int quotient = decimal;
-
-    while (quotient > 0)
+public:
+    int value;
+    Decimal(int val)
     {
-        binary += to_string(quotient % 2);
-        quotient = quotient / 2;
+        value = val;
     }
 
-    return reverse(binary);
-}
-
-int convertDecimalToOctal(int decimal)
-{
-    string octal = "";
-    int quotient = decimal;
-
-    while (quotient > 0)
+    string toBinary()
     {
-        octal += to_string(quotient % 8);
-        quotient = quotient / 8;
-    }
+        string binary = "";
+        int quotient = value;
 
-    return stoi(reverse(octal));
-}
-
-string convertDecimalToHexadecimal(int decimal)
-{
-    map<int, string> extra;
-    extra[10] = "A";
-    extra[11] = "B";
-    extra[12] = "C";
-    extra[13] = "D";
-    extra[14] = "E";
-    extra[15] = "F";
-
-    string hexadecimal = "";
-    int quotient, remainder;
-    quotient = decimal;
-
-    while (quotient > 0)
-    {
-        remainder = quotient % 16;
-        if (extra.count(remainder))
+        while (quotient > 0)
         {
-            hexadecimal += extra[remainder];
-        }
-        else
-        {
-            hexadecimal += to_string(remainder);
+            binary += to_string(quotient % 2);
+            quotient = quotient / 2;
         }
 
-        quotient = quotient / 16;
+        return reverse(binary);
     }
 
-    return reverse(hexadecimal);
-}
+    int toOctal()
+    {
+        string octal = "";
+        int quotient = value;
+
+        while (quotient > 0)
+        {
+            octal += to_string(quotient % 8);
+            quotient = quotient / 8;
+        }
+
+        return stoi(reverse(octal));
+    }
+
+    string toHexadecimal()
+    {
+        map<int, string> extra;
+        extra[10] = "A";
+        extra[11] = "B";
+        extra[12] = "C";
+        extra[13] = "D";
+        extra[14] = "E";
+        extra[15] = "F";
+
+        string hexadecimal = "";
+        int quotient, remainder;
+        quotient = value;
+
+        while (quotient > 0)
+        {
+            remainder = quotient % 16;
+            if (extra.count(remainder))
+            {
+                hexadecimal += extra[remainder];
+            }
+            else
+            {
+                hexadecimal += to_string(remainder);
+            }
+
+            quotient = quotient / 16;
+        }
+
+        return reverse(hexadecimal);
+    }
+};
 
 int main()
 {
-    int decimal, octal;
+    int octal;
     string binary, hexadecimal;
 
-    decimal = 345345;
-    binary = convertDecimalToBinary(decimal);
-    octal = convertDecimalToOctal(decimal);
-    hexadecimal = convertDecimalToHexadecimal(decimal);
-    cout << "Decimal(source): " << decimal << endl;
+    Decimal decimal = Decimal(345345);
+    binary = decimal.toBinary();
+    octal = decimal.toOctal();
+    hexadecimal = decimal.toHexadecimal();
+    cout << "Decimal(source): " << decimal.value << endl;
     cout << "Binary: " << binary << endl;
     cout << "Octal: " << octal << endl;
     cout << "Hexadecimal: " << hexadecimal << endl;
