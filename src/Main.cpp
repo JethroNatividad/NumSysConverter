@@ -30,6 +30,20 @@ string convertDecimalToBinary(int decimal)
     return reverse(binary);
 }
 
+int convertDecimalToOctal(int decimal)
+{
+    string octal = "";
+    int quotient = decimal;
+
+    while (quotient > 0)
+    {
+        octal += to_string(quotient % 8);
+        quotient = quotient / 8;
+    }
+
+    return stoi(reverse(octal));
+}
+
 int main()
 {
     int decimal, octal;
@@ -37,8 +51,10 @@ int main()
 
     decimal = 345345;
     binary = convertDecimalToBinary(decimal);
+    octal = convertDecimalToOctal(decimal);
     cout << "Decimal(source): " << decimal << endl;
     cout << "Binary: " << binary << endl;
+    cout << "Octal: " << octal << endl;
 
     return 0;
 }
