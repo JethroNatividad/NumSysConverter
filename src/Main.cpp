@@ -44,6 +44,38 @@ int convertDecimalToOctal(int decimal)
     return stoi(reverse(octal));
 }
 
+string convertDecimalToHexadecimal(int decimal)
+{
+    map<int, string> extra;
+    extra[10] = "A";
+    extra[11] = "B";
+    extra[12] = "C";
+    extra[13] = "D";
+    extra[14] = "E";
+    extra[15] = "F";
+
+    string hexadecimal = "";
+    int quotient, remainder;
+    quotient = decimal;
+
+    while (quotient > 0)
+    {
+        remainder = quotient % 16;
+        if (extra.count(remainder))
+        {
+            hexadecimal += extra[remainder];
+        }
+        else
+        {
+            hexadecimal += to_string(remainder);
+        }
+
+        quotient = quotient / 16;
+    }
+
+    return reverse(hexadecimal);
+}
+
 int main()
 {
     int decimal, octal;
@@ -52,9 +84,11 @@ int main()
     decimal = 345345;
     binary = convertDecimalToBinary(decimal);
     octal = convertDecimalToOctal(decimal);
+    hexadecimal = convertDecimalToHexadecimal(decimal);
     cout << "Decimal(source): " << decimal << endl;
     cout << "Binary: " << binary << endl;
     cout << "Octal: " << octal << endl;
+    cout << "Hexadecimal: " << hexadecimal << endl;
 
     return 0;
 }
